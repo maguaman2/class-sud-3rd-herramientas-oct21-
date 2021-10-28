@@ -10,7 +10,6 @@ class WorkoutService {
     @Autowired
     lateinit var workoutRepository: WorkoutRepository
 
-
     fun list(): List<Workout> {
 
         return workoutRepository.findAll()
