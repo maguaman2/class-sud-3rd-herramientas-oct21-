@@ -18,4 +18,22 @@ class DietService {
     fun save(diet:Diet):Diet{
         return dietRepository.save(diet)
     }
+
+    fun update(diet:Diet):Diet{
+        return dietRepository.save(diet)
+    }
+
+    fun updateDescription (diet:Diet):Diet {
+        val response = dietRepository.findById(diet.id)
+                ?: throw Exception()
+        response.apply {
+            this.description=diet.description
+        }
+        return dietRepository.save(diet)
+    }
+
+    fun delete (id:Long): Boolean{
+        dietRepository.deleteById(id)
+        return true
+    }
 }

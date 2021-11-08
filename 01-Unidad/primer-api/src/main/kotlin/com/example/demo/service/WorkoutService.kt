@@ -14,4 +14,6 @@ class WorkoutService {
 
         return workoutRepository.findAll()
     }
+
+
 }
