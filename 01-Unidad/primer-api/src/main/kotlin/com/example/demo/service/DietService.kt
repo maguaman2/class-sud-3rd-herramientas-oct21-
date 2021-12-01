@@ -3,7 +3,10 @@ package com.example.demo.service
 import com.example.demo.model.Diet
 import com.example.demo.repository.DietRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.web.server.ResponseStatusException
+
 
 @Service
 class DietService {
@@ -24,12 +27,21 @@ class DietService {
     }
 
     fun updateDescription (diet:Diet):Diet {
-        val response = dietRepository.findById(diet.id)
-                ?: throw Exception()
-        response.apply {
-            this.description=diet.description
+        try {
+            if (diet.description.equals("")){
+                throw java.lang.Exception("description no puede ser vacio")
+            }
+            val response = dietRepository.findById(diet.id)
+                    ?: throw Exception("El id ${diet.id} en dieta no existe")
+            response.apply {
+                this.description = diet.description
+            }
+            return dietRepository.save(diet)
         }
-        return dietRepository.save(diet)
+        catch (ex: Exception) {
+            throw ResponseStatusException(
+                    HttpStatus.NOT_FOUND, ex.message, ex)
+        }
     }
 
     fun delete (id:Long): Boolean{
