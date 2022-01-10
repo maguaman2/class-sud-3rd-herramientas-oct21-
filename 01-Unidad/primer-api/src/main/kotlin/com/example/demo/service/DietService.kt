@@ -19,6 +19,9 @@ class DietService {
     }
 
     fun save(diet:Diet):Diet{
+
+
+
         return dietRepository.save(diet)
     }
 
@@ -28,9 +31,11 @@ class DietService {
 
     fun updateDescription (diet:Diet):Diet {
         try {
-            if (diet.description.equals("")){
-                throw java.lang.Exception("description no puede ser vacio")
-            }
+            diet.description?.takeIf { it.trim().isNotEmpty() }
+                    ?: throw Exception("Descripcion no debe ser vacio")
+
+
+
             val response = dietRepository.findById(diet.id)
                     ?: throw Exception("El id ${diet.id} en dieta no existe")
             response.apply {
@@ -47,5 +52,9 @@ class DietService {
     fun delete (id:Long): Boolean{
         dietRepository.deleteById(id)
         return true
+    }
+
+    fun calcularAlgo(number: Long?): Int{
+        return 0;
     }
 }
