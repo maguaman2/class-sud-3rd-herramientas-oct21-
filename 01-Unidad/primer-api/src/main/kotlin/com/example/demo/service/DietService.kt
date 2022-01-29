@@ -20,21 +20,30 @@ class DietService {
 
     fun save(diet:Diet):Diet{
 
-
-
         return dietRepository.save(diet)
     }
 
     fun update(diet:Diet):Diet{
-        return dietRepository.save(diet)
+        try {
+            dietRepository.findById(diet.id)
+                    ?: throw Exception("fffff")
+
+            //Validar que no vengan vacios
+            diet.description?.takeIf { it.trim().isNotEmpty() }
+                    ?: throw java.lang.Exception()
+
+            return dietRepository.save(diet)
+        }catch (ex:Exception){
+            throw Exception()
+        }
+
     }
 
     fun updateDescription (diet:Diet):Diet {
         try {
+
             diet.description?.takeIf { it.trim().isNotEmpty() }
                     ?: throw Exception("Descripcion no debe ser vacio")
-
-
 
             val response = dietRepository.findById(diet.id)
                     ?: throw Exception("El id ${diet.id} en dieta no existe")
@@ -57,4 +66,12 @@ class DietService {
     fun calcularAlgo(number: Long?): Int{
         return 0;
     }
+
+    fun verifyWord(description: String?):Boolean{
+        if (description?.length!!<3){
+            return false
+        }
+        return true
+    }
+
 }

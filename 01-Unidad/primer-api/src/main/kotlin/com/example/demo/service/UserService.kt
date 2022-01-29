@@ -22,6 +22,7 @@ class UserService {
     }
 
     fun getUser(username:String?):User?{
+
         try {
             val response = userRepository.findByUsername(username)
                     ?: throw Exception("No existe usuario")
@@ -37,5 +38,17 @@ class UserService {
         return userRepository.save(user)
     }
 
+    //metodos de la logica
+    fun calcMultiplication (index: Int, number:Int):Int{
+        //si index es par, devolver number por 2
+        //si index es impar, devolver number por 1
+        if (index %2 ==0){
+
+        }else
+        {
+
+        }
+        return 0
+    }
 
 }

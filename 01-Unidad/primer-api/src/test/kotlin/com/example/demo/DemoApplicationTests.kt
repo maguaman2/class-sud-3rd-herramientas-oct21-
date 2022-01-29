@@ -1,13 +1,21 @@
 package com.example.demo
 
+import com.example.demo.service.DietService
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+
 
 @SpringBootTest
 class DemoApplicationTests {
+	@Autowired
+	lateinit var dietService: DietService
 
 	@Test
 	fun contextLoads() {
+
 	}
+
 
 }
